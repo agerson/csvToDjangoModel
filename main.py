@@ -9,15 +9,17 @@ with open('import.csv', 'r') as read_obj:
     row_1 = next(csv_reader)
     print(headers)
     print(row_1)
-
-    model_row = ""
+    model_row = ''
+    
+    print('last_updated = models.DateTimeField(auto_now=True, editable=False)')
+    print('created = models.DateTimeField(auto_now_add=True, editable=False)')
     for i, col in enumerate(row_1):
         field_name = headers[i].strip().lower().replace(' ', '_')
-        model_row = field_name + " = models."
+        model_row = field_name + ' = models.'
         if col.isnumeric():
-            model_row += "IntegerField()"
+            model_row += 'IntegerField()'
         elif '@' in col:
-            model_row += "EmailField()"
+            model_row += 'EmailField()'
         else:
-            model_row += "TextField(max_length=100)"
+            model_row += 'TextField(max_length=100)'
         print(model_row)
